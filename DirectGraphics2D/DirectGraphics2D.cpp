@@ -6,8 +6,9 @@
 * @file		DirectGraphics2D.cpp
 * @brief	This Program is DirectGraphics2D DLL Project.
 * @author	Alopex/Helium
-* @version	v1.00a
+* @version	v1.10a
 * @date		2017-11-2	v1.00a	alopex	Create Project
+* @date		2017-12-8	v1.10a	alopex	Code Do Not Rely On MSVCR Library
 */
 #include "DirectCommon.h"
 #include "DirectGraphics2D.h"
