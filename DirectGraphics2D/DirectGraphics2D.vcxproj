@@ -58,6 +58,7 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;DIRECTGRAPHICS2D_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -86,6 +87,7 @@
   <ItemGroup>
     <ClInclude Include="DirectCommon.h" />
     <ClInclude Include="DirectGraphics2D.h" />
+    <ClInclude Include="DirectThreadSafe.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DirectGraphics2D.cpp" />
