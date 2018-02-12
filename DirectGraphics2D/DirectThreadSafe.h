@@ -28,27 +28,12 @@
 class DIRECTTHREADSAFE_API DirectThreadSafe
 {
 private:
-	CRITICAL_SECTION* m_pCriticalSection;
-	bool m_bThreadSafe;
+	CRITICAL_SECTION* m_pCriticalSection;	//CriticalSection Variable
+	bool m_bThreadSafe;						//CriticalSection ThreadSafe Use Variable
 
 public:
 	DirectThreadSafe(const CRITICAL_SECTION* pCriticalSection, const bool bThreadSafe);
 	~DirectThreadSafe();
 };
-
-//DirectThreadSafe构造函数
-DirectThreadSafe::DirectThreadSafe(const CRITICAL_SECTION* pCriticalSection, const bool bThreadSafe)
-{
-	m_pCriticalSection = (CRITICAL_SECTION*)pCriticalSection;
-	m_bThreadSafe = bThreadSafe;
-
-	if (m_bThreadSafe) EnterCriticalSection(m_pCriticalSection);
-}
-
-//DirectThreadSafe析构函数
-DirectThreadSafe::~DirectThreadSafe()
-{
-	if (m_bThreadSafe) LeaveCriticalSection(m_pCriticalSection);
-}
 
 #endif

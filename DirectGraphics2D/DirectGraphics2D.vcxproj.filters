@@ -18,6 +18,9 @@
     <ClCompile Include="DirectGraphics2D.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="DirectThreadSafe.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DirectCommon.h">

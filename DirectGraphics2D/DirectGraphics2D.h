@@ -11,6 +11,7 @@
 * @date		2017-12-8	v1.10a	alopex	Code Do Not Rely On MSVCR Library.
 * @date		2018-1-10	v1.20a	alopex	Code Add dxerr & d3dcompiler Library and Modify Verify.
 * @date		2018-1-10	v1.21a	alopex	Add Thread Safe File & Variable(DirectThreadSafe).
+* @date		2018-2-12	v1.22a	alopex	Add Reset Lost Device.
 */
 #pragma once
 
@@ -91,16 +92,19 @@ public:
 	DirectGraphics2D(LPDIRECT3DDEVICE9 pD3D9Device);		//DirectGraphics2D Constructor Function(构造函数)(传入D3D9 Device)(Important)
 
 	//访问
-	LPDIRECT3DDEVICE9 WINAPI DirectGraphics2DGetD3D9Device(void) const;				//DirectGraphics2D D3D9 Get Device Pointer
-	LPDIRECT3DVERTEXBUFFER9 WINAPI DirectGraphics2DGetVertexBuffer(void) const;		//DirectGraphics2D D3D9 Get Vertex Buffer
-	LPDIRECT3DINDEXBUFFER9 WINAPI DirectGraphics2DGetIndexBuffer(void) const;		//DirectGraphics2D D3D9 Get Index Buffer
-	LPDIRECT3DTEXTURE9 WINAPI DirectGraphics2DGetTexture(void) const;				//DirectGraphics2D D3D9 Get Texture
+	virtual LPDIRECT3DDEVICE9 WINAPI DirectGraphics2DGetD3D9Device(void) const;				//DirectGraphics2D D3D9 Get Device Pointer
+	virtual LPDIRECT3DVERTEXBUFFER9 WINAPI DirectGraphics2DGetVertexBuffer(void) const;		//DirectGraphics2D D3D9 Get Vertex Buffer
+	virtual LPDIRECT3DINDEXBUFFER9 WINAPI DirectGraphics2DGetIndexBuffer(void) const;		//DirectGraphics2D D3D9 Get Index Buffer
+	virtual LPDIRECT3DTEXTURE9 WINAPI DirectGraphics2DGetTexture(void) const;				//DirectGraphics2D D3D9 Get Texture
 
 	//控制
-	void WINAPI DirectGraphics2DSetD3D9Device(LPDIRECT3DDEVICE9 pD3D9Device);					//DirectGraphics2D D3D9 Set Device Pointer
-	void WINAPI DirectGraphics2DSetVertexBuffer(LPDIRECT3DVERTEXBUFFER9 pD3D9VertexBuffer);		//DirectGraphics2D D3D9 Set Vertex Buffer
-	void WINAPI DirectGraphics2DSetIndexBuffer(LPDIRECT3DINDEXBUFFER9 pD3D9IndexBuffer);		//DirectGraphics2D D3D9 Set Index Buffer
-	void WINAPI DirectGraphics2DSetTexture(LPDIRECT3DTEXTURE9 pD3D9Texture);					//DirectGraphics2D D3D9 Set Texture
+	virtual void WINAPI DirectGraphics2DSetD3D9Device(LPDIRECT3DDEVICE9 pD3D9Device);					//DirectGraphics2D D3D9 Set Device Pointer
+	virtual void WINAPI DirectGraphics2DSetVertexBuffer(LPDIRECT3DVERTEXBUFFER9 pD3D9VertexBuffer);		//DirectGraphics2D D3D9 Set Vertex Buffer
+	virtual void WINAPI DirectGraphics2DSetIndexBuffer(LPDIRECT3DINDEXBUFFER9 pD3D9IndexBuffer);		//DirectGraphics2D D3D9 Set Index Buffer
+	virtual void WINAPI DirectGraphics2DSetTexture(LPDIRECT3DTEXTURE9 pD3D9Texture);					//DirectGraphics2D D3D9 Set Texture
+
+	//重置(丢失设备)
+	virtual HRESULT WINAPI DirectGraphics2DReset(void);													//DirectGraphics2D D3D9 Reset(重置)(Reset后需要调用Init函数重新初始化)
 
 	//初始化
 	virtual HRESULT WINAPI DirectGraphics2DInit(int nPlane);														//DirectGraphics2D Initialization(初始化)(平面数)

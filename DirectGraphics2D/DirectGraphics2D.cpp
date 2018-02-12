@@ -11,6 +11,7 @@
 * @date		2017-12-8	v1.10a	alopex	Code Do Not Rely On MSVCR Library.
 * @date		2018-1-10	v1.20a	alopex	Code Add dxerr & d3dcompiler Library and Modify Verify.
 * @date		2018-1-10	v1.21a	alopex	Add Thread Safe File & Variable(DirectThreadSafe).
+* @date		2018-2-12	v1.22a	alopex	Add Reset Lost Device.
 */
 #include "DirectCommon.h"
 #include "DirectGraphics2D.h"
@@ -170,6 +171,21 @@ void WINAPI DirectGraphics2D::DirectGraphics2DSetTexture(LPDIRECT3DTEXTURE9 pD3D
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	m_pD3D9Texture = pD3D9Texture;
+}
+
+//-----------------------------------------------------------------------------------------
+// @Function:	 DirectGraphics2DReset(void)
+// @Purpose: DirectGraphics2D重置(丢失设备)
+// @Since: v1.00a
+// @Para: None
+// @Return: HRESULT(成功:S_OK, 失败:E_FAIL)
+//-----------------------------------------------------------------------------------------
+HRESULT WINAPI DirectGraphics2D::DirectGraphics2DReset(void)
+{
+	SAFE_RELEASE(m_pD3D9VertexBuffer);		//IDirect3DVertexBuffer9接口指针释放
+	SAFE_RELEASE(m_pD3D9IndexBuffer);		//IDirect3DIndexBuffer9接口指针释放
+	SAFE_RELEASE(m_pD3D9Texture);			//IDirect3DTexture9接口指针释放
+	return S_OK;
 }
 
 //-----------------------------------------------------------------------------------------
