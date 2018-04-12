@@ -12,6 +12,7 @@
 * @date		2018-1-10	v1.20a	alopex	Code Add dxerr & d3dcompiler Library and Modify Verify.
 * @date		2018-1-10	v1.21a	alopex	Add Thread Safe File & Variable(DirectThreadSafe).
 * @date		2018-2-12	v1.22a	alopex	Add Reset Lost Device.
+* @date		2018-4-12	v1.23a	alopex	Add Macro Call Mode.
 */
 #include "DirectCommon.h"
 #include "DirectGraphics2D.h"
@@ -76,7 +77,7 @@ DirectGraphics2D::DirectGraphics2D(LPDIRECT3DDEVICE9 pD3D9Device)
 // @Para: None
 // @Return: None
 //-----------------------------------------------------------------------
-LPDIRECT3DDEVICE9 WINAPI DirectGraphics2D::DirectGraphics2DGetD3D9Device(void) const
+LPDIRECT3DDEVICE9 DIRECTGRAPHICS2D_CALLMODE DirectGraphics2D::DirectGraphics2DGetD3D9Device(void) const
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	return m_pD3D9Device;
@@ -89,7 +90,7 @@ LPDIRECT3DDEVICE9 WINAPI DirectGraphics2D::DirectGraphics2DGetD3D9Device(void) c
 // @Para: None
 // @Return: None
 //-----------------------------------------------------------------------
-LPDIRECT3DVERTEXBUFFER9 WINAPI DirectGraphics2D::DirectGraphics2DGetVertexBuffer(void) const
+LPDIRECT3DVERTEXBUFFER9 DIRECTGRAPHICS2D_CALLMODE DirectGraphics2D::DirectGraphics2DGetVertexBuffer(void) const
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	return m_pD3D9VertexBuffer;
@@ -102,7 +103,7 @@ LPDIRECT3DVERTEXBUFFER9 WINAPI DirectGraphics2D::DirectGraphics2DGetVertexBuffer
 // @Para: None
 // @Return: None
 //-----------------------------------------------------------------------
-LPDIRECT3DINDEXBUFFER9 WINAPI DirectGraphics2D::DirectGraphics2DGetIndexBuffer(void) const
+LPDIRECT3DINDEXBUFFER9 DIRECTGRAPHICS2D_CALLMODE DirectGraphics2D::DirectGraphics2DGetIndexBuffer(void) const
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	return m_pD3D9IndexBuffer;
@@ -115,7 +116,7 @@ LPDIRECT3DINDEXBUFFER9 WINAPI DirectGraphics2D::DirectGraphics2DGetIndexBuffer(v
 // @Para: None
 // @Return: None
 //-----------------------------------------------------------------------
-LPDIRECT3DTEXTURE9 WINAPI DirectGraphics2D::DirectGraphics2DGetTexture(void) const
+LPDIRECT3DTEXTURE9 DIRECTGRAPHICS2D_CALLMODE DirectGraphics2D::DirectGraphics2DGetTexture(void) const
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	return m_pD3D9Texture;
@@ -128,7 +129,7 @@ LPDIRECT3DTEXTURE9 WINAPI DirectGraphics2D::DirectGraphics2DGetTexture(void) con
 // @Para: None
 // @Return: None
 //---------------------------------------------------------------------------
-void WINAPI DirectGraphics2D::DirectGraphics2DSetD3D9Device(LPDIRECT3DDEVICE9 pD3D9Device)
+void DIRECTGRAPHICS2D_CALLMODE DirectGraphics2D::DirectGraphics2DSetD3D9Device(LPDIRECT3DDEVICE9 pD3D9Device)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	m_pD3D9Device = pD3D9Device;
@@ -141,7 +142,7 @@ void WINAPI DirectGraphics2D::DirectGraphics2DSetD3D9Device(LPDIRECT3DDEVICE9 pD
 // @Para: None
 // @Return: None
 //-----------------------------------------------------------------------------------------
-void WINAPI DirectGraphics2D::DirectGraphics2DSetVertexBuffer(LPDIRECT3DVERTEXBUFFER9 pD3D9VertexBuffer)
+void DIRECTGRAPHICS2D_CALLMODE DirectGraphics2D::DirectGraphics2DSetVertexBuffer(LPDIRECT3DVERTEXBUFFER9 pD3D9VertexBuffer)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	m_pD3D9VertexBuffer = pD3D9VertexBuffer;
@@ -154,7 +155,7 @@ void WINAPI DirectGraphics2D::DirectGraphics2DSetVertexBuffer(LPDIRECT3DVERTEXBU
 // @Para: None
 // @Return: None
 //-----------------------------------------------------------------------------------------
-void WINAPI DirectGraphics2D::DirectGraphics2DSetIndexBuffer(LPDIRECT3DINDEXBUFFER9 pD3D9IndexBuffer)
+void DIRECTGRAPHICS2D_CALLMODE DirectGraphics2D::DirectGraphics2DSetIndexBuffer(LPDIRECT3DINDEXBUFFER9 pD3D9IndexBuffer)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	m_pD3D9IndexBuffer = pD3D9IndexBuffer;
@@ -167,7 +168,7 @@ void WINAPI DirectGraphics2D::DirectGraphics2DSetIndexBuffer(LPDIRECT3DINDEXBUFF
 // @Para: None
 // @Return: None
 //-----------------------------------------------------------------------------------------
-void WINAPI DirectGraphics2D::DirectGraphics2DSetTexture(LPDIRECT3DTEXTURE9 pD3D9Texture)
+void DIRECTGRAPHICS2D_CALLMODE DirectGraphics2D::DirectGraphics2DSetTexture(LPDIRECT3DTEXTURE9 pD3D9Texture)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	m_pD3D9Texture = pD3D9Texture;
@@ -180,7 +181,7 @@ void WINAPI DirectGraphics2D::DirectGraphics2DSetTexture(LPDIRECT3DTEXTURE9 pD3D
 // @Para: None
 // @Return: HRESULT(成功:S_OK, 失败:E_FAIL)
 //-----------------------------------------------------------------------------------------
-HRESULT WINAPI DirectGraphics2D::DirectGraphics2DReset(void)
+HRESULT DIRECTGRAPHICS2D_CALLMODE DirectGraphics2D::DirectGraphics2DReset(void)
 {
 	SAFE_RELEASE(m_pD3D9VertexBuffer);		//IDirect3DVertexBuffer9接口指针释放
 	SAFE_RELEASE(m_pD3D9IndexBuffer);		//IDirect3DIndexBuffer9接口指针释放
@@ -195,7 +196,7 @@ HRESULT WINAPI DirectGraphics2D::DirectGraphics2DReset(void)
 // @Para: int nPlane	//平面个数
 // @Return: None
 //-----------------------------------------------------------------------------------------
-HRESULT WINAPI DirectGraphics2D::DirectGraphics2DInit(int nPlane)
+HRESULT DIRECTGRAPHICS2D_CALLMODE DirectGraphics2D::DirectGraphics2DInit(int nPlane)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 
@@ -216,7 +217,7 @@ HRESULT WINAPI DirectGraphics2D::DirectGraphics2DInit(int nPlane)
 // @Para: LPCWSTR lpszStrTexture	//纹理路径
 // @Return: None
 //-----------------------------------------------------------------------------------------
-HRESULT WINAPI DirectGraphics2D::DirectGraphics2DInit(int nPlane, LPCWSTR lpszStrTexture)
+HRESULT DIRECTGRAPHICS2D_CALLMODE DirectGraphics2D::DirectGraphics2DInit(int nPlane, LPCWSTR lpszStrTexture)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 
@@ -240,7 +241,7 @@ HRESULT WINAPI DirectGraphics2D::DirectGraphics2DInit(int nPlane, LPCWSTR lpszSt
 // @Para: int nPlane					//平面个数
 // @Return: None
 //-----------------------------------------------------------------------------------------
-HRESULT WINAPI DirectGraphics2D::DirectGraphics2DInit(Vertex2DType eVertex2DType, int nPlane)
+HRESULT DIRECTGRAPHICS2D_CALLMODE DirectGraphics2D::DirectGraphics2DInit(Vertex2DType eVertex2DType, int nPlane)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 
@@ -281,7 +282,7 @@ HRESULT WINAPI DirectGraphics2D::DirectGraphics2DInit(Vertex2DType eVertex2DType
 // @Para: LPCWSTR lpszStrTexture		//纹理路径
 // @Return: None
 //---------------------------------------------------------------------------------------------------
-HRESULT WINAPI DirectGraphics2D::DirectGraphics2DInit(Vertex2DType eVertex2DType, int nPlane, LPCWSTR lpszStrTexture)
+HRESULT DIRECTGRAPHICS2D_CALLMODE DirectGraphics2D::DirectGraphics2DInit(Vertex2DType eVertex2DType, int nPlane, LPCWSTR lpszStrTexture)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 
@@ -325,7 +326,7 @@ HRESULT WINAPI DirectGraphics2D::DirectGraphics2DInit(Vertex2DType eVertex2DType
 // @Para: int nSize						//填充顶点数组长度
 // @Return: None
 //---------------------------------------------------------------------------------------------------
-void WINAPI DirectGraphics2D::DirectGraphics2DPaddingVertex(Vertex2DBase* VertexArray, int nSize)
+void DIRECTGRAPHICS2D_CALLMODE DirectGraphics2D::DirectGraphics2DPaddingVertex(Vertex2DBase* VertexArray, int nSize)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	Vertex2DBase* pVertices = NULL;
@@ -348,7 +349,7 @@ void WINAPI DirectGraphics2D::DirectGraphics2DPaddingVertex(Vertex2DBase* Vertex
 // @Para: int nSize						//填充顶点数组长度
 // @Return: None
 //---------------------------------------------------------------------------------------------------
-void WINAPI DirectGraphics2D::DirectGraphics2DPaddingVertex(Vertex2DTexture* VertexArray, int nSize)
+void DIRECTGRAPHICS2D_CALLMODE DirectGraphics2D::DirectGraphics2DPaddingVertex(Vertex2DTexture* VertexArray, int nSize)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	Vertex2DTexture* pVertices = NULL;
@@ -371,7 +372,7 @@ void WINAPI DirectGraphics2D::DirectGraphics2DPaddingVertex(Vertex2DTexture* Ver
 // @Para: int nSize									//填充顶点数组长度
 // @Return: None
 //---------------------------------------------------------------------------------------------------
-void WINAPI DirectGraphics2D::DirectGraphics2DPaddingVertex(Vertex2DSpecularTexture* VertexArray, int nSize)
+void DIRECTGRAPHICS2D_CALLMODE DirectGraphics2D::DirectGraphics2DPaddingVertex(Vertex2DSpecularTexture* VertexArray, int nSize)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	Vertex2DSpecularTexture* pVertices = NULL;
@@ -393,7 +394,7 @@ void WINAPI DirectGraphics2D::DirectGraphics2DPaddingVertex(Vertex2DSpecularText
 // @Para: int nPlane	//平面数
 // @Return: None
 //--------------------------------------------------------------------------------------------------
-void WINAPI DirectGraphics2D::DirectGraphics2DPaddingIndex(int nPlane)
+void DIRECTGRAPHICS2D_CALLMODE DirectGraphics2D::DirectGraphics2DPaddingIndex(int nPlane)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 
@@ -423,7 +424,7 @@ void WINAPI DirectGraphics2D::DirectGraphics2DPaddingIndex(int nPlane)
 // @Para: int nPlane								//填充平面个数
 // @Return: None
 //---------------------------------------------------------------------------------------------------
-void WINAPI DirectGraphics2D::DirectGraphics2DPaddingVertexAndIndex(Vertex2DBase* VertexArray, int nPlane)
+void DIRECTGRAPHICS2D_CALLMODE DirectGraphics2D::DirectGraphics2DPaddingVertexAndIndex(Vertex2DBase* VertexArray, int nPlane)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 
@@ -465,7 +466,7 @@ void WINAPI DirectGraphics2D::DirectGraphics2DPaddingVertexAndIndex(Vertex2DBase
 // @Para: int nPlane								//填充平面个数
 // @Return: None
 //---------------------------------------------------------------------------------------------------
-void WINAPI DirectGraphics2D::DirectGraphics2DPaddingVertexAndIndex(Vertex2DTexture* VertexArray, int nPlane)
+void DIRECTGRAPHICS2D_CALLMODE DirectGraphics2D::DirectGraphics2DPaddingVertexAndIndex(Vertex2DTexture* VertexArray, int nPlane)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 
@@ -507,7 +508,7 @@ void WINAPI DirectGraphics2D::DirectGraphics2DPaddingVertexAndIndex(Vertex2DText
 // @Para: int nPlane										//填充平面个数
 // @Return: None
 //------------------------------------------------------------------------------------------------------
-void WINAPI DirectGraphics2D::DirectGraphics2DPaddingVertexAndIndex(Vertex2DSpecularTexture* VertexArray, int nPlane)
+void DIRECTGRAPHICS2D_CALLMODE DirectGraphics2D::DirectGraphics2DPaddingVertexAndIndex(Vertex2DSpecularTexture* VertexArray, int nPlane)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 
@@ -550,7 +551,7 @@ void WINAPI DirectGraphics2D::DirectGraphics2DPaddingVertexAndIndex(Vertex2DSpec
 // @Para: int nPlane										//填充平面个数
 // @Return: None
 //---------------------------------------------------------------------------------------------------------------
-void WINAPI DirectGraphics2D::DirectGraphics2DPaddingVertexAndIndex(Vertex2DType eVertex2DType, LPVOID VertexArray, int nPlane)
+void DIRECTGRAPHICS2D_CALLMODE DirectGraphics2D::DirectGraphics2DPaddingVertexAndIndex(Vertex2DType eVertex2DType, LPVOID VertexArray, int nPlane)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	Vertex2DBase* pVertices2DBase = NULL;
@@ -618,7 +619,7 @@ void WINAPI DirectGraphics2D::DirectGraphics2DPaddingVertexAndIndex(Vertex2DType
 // @Para: None
 // @Return: None
 //---------------------------------------------------------------------------------------------------------------------------------------------
-void WINAPI DirectGraphics2D::DirectGraphics2DRenderStateAlphaEnable(void)
+void DIRECTGRAPHICS2D_CALLMODE DirectGraphics2D::DirectGraphics2DRenderStateAlphaEnable(void)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	m_pD3D9Device->SetRenderState(D3DRS_ALPHABLENDENABLE, true);					//Alpha混合开启
@@ -631,7 +632,7 @@ void WINAPI DirectGraphics2D::DirectGraphics2DRenderStateAlphaEnable(void)
 // @Para: None
 // @Return: None
 //---------------------------------------------------------------------------------------------------------------------------------------------
-void WINAPI DirectGraphics2D::DirectGraphics2DRenderStateAlphaDisable(void)
+void DIRECTGRAPHICS2D_CALLMODE DirectGraphics2D::DirectGraphics2DRenderStateAlphaDisable(void)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 	m_pD3D9Device->SetRenderState(D3DRS_ALPHABLENDENABLE, false);					//Alpha混合关闭
@@ -644,7 +645,7 @@ void WINAPI DirectGraphics2D::DirectGraphics2DRenderStateAlphaDisable(void)
 // @Para: None
 // @Return: None
 //---------------------------------------------------------------------------------------------------------------------------------------------
-void WINAPI DirectGraphics2D::DirectGraphics2DRenderStateSetting(void)
+void DIRECTGRAPHICS2D_CALLMODE DirectGraphics2D::DirectGraphics2DRenderStateSetting(void)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 
@@ -669,7 +670,7 @@ void WINAPI DirectGraphics2D::DirectGraphics2DRenderStateSetting(void)
 // @Para: None
 // @Return: None
 //---------------------------------------------------------------------------------------------------------------------------------------------
-void WINAPI DirectGraphics2D::DirectGraphics2DRenderStateAlphaMix(void)
+void DIRECTGRAPHICS2D_CALLMODE DirectGraphics2D::DirectGraphics2DRenderStateAlphaMix(void)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 
@@ -692,7 +693,7 @@ void WINAPI DirectGraphics2D::DirectGraphics2DRenderStateAlphaMix(void)
 // @Para: None
 // @Return: None
 //---------------------------------------------------------------------------------------------------------------------------------------------
-void WINAPI DirectGraphics2D::DirectGraphics2DRenderStateColorMix(void)
+void DIRECTGRAPHICS2D_CALLMODE DirectGraphics2D::DirectGraphics2DRenderStateColorMix(void)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 
@@ -708,7 +709,7 @@ void WINAPI DirectGraphics2D::DirectGraphics2DRenderStateColorMix(void)
 // @Para: None
 // @Return: None
 //---------------------------------------------------------------------------------------------------------------------------------------------
-void WINAPI DirectGraphics2D::DirectGraphics2DRenderStateColorMix(D3DXCOLOR MixColor)
+void DIRECTGRAPHICS2D_CALLMODE DirectGraphics2D::DirectGraphics2DRenderStateColorMix(D3DXCOLOR MixColor)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 
@@ -728,7 +729,7 @@ void WINAPI DirectGraphics2D::DirectGraphics2DRenderStateColorMix(D3DXCOLOR MixC
 // @Para: bool bIsTexture				//是否渲染纹理
 // @Return: None
 //---------------------------------------------------------------------------------------------------------------------------------------------
-void WINAPI DirectGraphics2D::DirectGraphics2DRender(Vertex2DType eVertex2DType, int nPlane, bool bIsTexture)
+void DIRECTGRAPHICS2D_CALLMODE DirectGraphics2D::DirectGraphics2DRender(Vertex2DType eVertex2DType, int nPlane, bool bIsTexture)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 
@@ -771,7 +772,7 @@ void WINAPI DirectGraphics2D::DirectGraphics2DRender(Vertex2DType eVertex2DType,
 // @Para: bool bIsTexture				//是否渲染纹理
 // @Return: None
 //---------------------------------------------------------------------------------------------------------------------------------------------
-void WINAPI DirectGraphics2D::DirectGraphics2DRender(Vertex2DType eVertex2DType, int nStartIndex, int nPlane, bool bIsTexture)
+void DIRECTGRAPHICS2D_CALLMODE DirectGraphics2D::DirectGraphics2DRender(Vertex2DType eVertex2DType, int nStartIndex, int nPlane, bool bIsTexture)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 
@@ -814,7 +815,7 @@ void WINAPI DirectGraphics2D::DirectGraphics2DRender(Vertex2DType eVertex2DType,
 // @Para: bool bIsTexture				//是否渲染纹理
 // @Return: None
 //---------------------------------------------------------------------------------------------------------------------------------------------
-void WINAPI DirectGraphics2D::DirectGraphics2DRender(Vertex2DType eVertex2DType, int nStartIndex, int nPlane, LPDIRECT3DTEXTURE9 pRenderTexture)
+void DIRECTGRAPHICS2D_CALLMODE DirectGraphics2D::DirectGraphics2DRender(Vertex2DType eVertex2DType, int nStartIndex, int nPlane, LPDIRECT3DTEXTURE9 pRenderTexture)
 {
 	DirectThreadSafe ThreadSafe(&m_cs, m_bThreadSafe);
 

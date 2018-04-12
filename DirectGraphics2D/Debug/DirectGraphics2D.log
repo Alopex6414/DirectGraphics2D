@@ -1,4 +1,4 @@
-﻿生成启动时间为 2018/2/12 13:41:03。
+﻿生成启动时间为 2018/4/12 12:46:47。
      1>项目“E:\HYX\Develop\HEL\C++\DirectGraphics2D\DirectGraphics2D\DirectGraphics2D.vcxproj”在节点 2 上(Rebuild 个目标)。
      1>ClCompile:
          D:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Ot /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _USRDLL /D DIRECTGRAPHICS2D_EXPORTS /D _WINDLL /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MT /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt DirectGraphics2D.cpp DirectThreadSafe.cpp
@@ -16,4 +16,4 @@
 
 生成成功。
 
-已用时间 00:00:02.21
+已用时间 00:00:02.50
