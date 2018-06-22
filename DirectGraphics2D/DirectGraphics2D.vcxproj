@@ -88,10 +88,14 @@
     <ClInclude Include="DirectCommon.h" />
     <ClInclude Include="DirectGraphics2D.h" />
     <ClInclude Include="DirectThreadSafe.h" />
+    <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DirectGraphics2D.cpp" />
     <ClCompile Include="DirectThreadSafe.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="DirectGraphics2D.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
